@@ -5,8 +5,8 @@ import cv2
 image_path = "input_image.jpg"
 output_path = "image_hex.txt"
 
-width = 128
-height = 128
+width = 256
+height = 256
 
 #2 import image and change to grayscale
 gray_image = cv2.imread(image_path,cv2.IMREAD_GRAYSCALE)
@@ -24,3 +24,4 @@ with open(output_path, 'w') as f:
                 pixel = res[row, col]
                 hex_string = f"{pixel:02x}"
                 f.write(hex_string + '\n')
+print(f"Success converting to {width * height}")

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sobel Edge Detector Project</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1e2227; color: #abb2bf; text-align: center; margin: 0; overflow: hidden; }
+        .slide { display: none; padding: 40px; height: 100vh; box-sizing: border-box; }
+        .active { display: block; }
+        h1 { font-size: 3.5em; color: #61dafb; margin-top: 5vh; margin-bottom: 10px;}
+        h2 { font-size: 2.5em; color: #98c379; margin-bottom: 20px;}
+        p { font-size: 1.3em; line-height: 1.6; max-width: 900px; margin: 15px auto; }
+        .controls { position: fixed; bottom: 30px; width: 100%; display: flex; justify-content: center; gap: 20px;}
+        button { background: #61dafb; color: #282c34; border: none; padding: 12px 25px; font-size: 1.2em; cursor: pointer; border-radius: 5px; font-weight: bold; transition: 0.2s;}
+        button:hover { background: #4fa8c7; transform: scale(1.05);}
+        
+        /* Layout classes */
+        .flex-row { display: flex; justify-content: center; align-items: center; gap: 30px; margin-top: 30px; }
+        .box-panel { background: #282c34; padding: 25px; border-radius: 10px; border: 1px solid #3e4451; box-shadow: 0 4px 6px rgba(0,0,0,0.3); text-align: left; max-width: 450px;}
+        
+        /* Grid for animation */
+        .conveyor { display: flex; gap: 5px; background: #3e4451; padding: 10px; border-radius: 5px; margin-bottom: 10px;}
+        .box { width: 50px; height: 50px; background: #e06c75; display: flex; align-items: center; justify-content: center; font-weight: bold; border-radius: 4px; font-size: 1.5em; color: #282c34;}
+        .grid3x3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; background: #3e4451; padding: 10px; border-radius: 5px;}
+        .empty { background: #282c34; }
+        
+        /* Code blocks */
+        .code { background: #282c34; padding: 20px; border-radius: 8px; font-family: 'Courier New', Courier, monospace; text-align: left; max-width: 700px; margin: 20px auto; color: #dcdcaa; font-size: 1.1em; border: 1px solid #3e4451;}
+        .highlight { color: #c678dd; font-weight: bold;}
+        .comment { color: #5c6370; font-style: italic;}
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: Intro -->
+    <div id="slide1" class="slide active">
+        <h1>Hardware Sobel Edge Detector</h1>
+        <p style="color: #e5c07b; font-size: 1.8em; font-weight: bold;">NTI Summer Training Final Project</p>
+        <p>A custom FPGA hardware accelerator built entirely in Verilog designed to process image filters in real-time using a pipelined streaming architecture.</p>
+        <div class="flex-row" style="margin-top: 60px;">
+            <div class="box-panel" style="text-align: center;">
+                <h3 style="color: #61dafb; margin-top: 0;">Project Team</h3>
+                <p style="font-size: 1.2em; color: white;">Youssef Mahmoud<br>Marc Victor<br>Mohammed Ashraf</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: Pipeline -->
+    <div id="slide2" class="slide">
+        <h2>Hardware/Software Co-Design Pipeline</h2>
+        <p>Because FPGAs operate on raw binary signals, they cannot natively read complex file formats like <code>.jpg</code>. We designed a 3-stage automated pipeline to test our hardware:</p>
+        
+        <div class="flex-row">
+            <div class="box-panel">
+                <h3 style="color: #c678dd; margin-top: 0;">1. Python Pre-Processing</h3>
+                <p style="font-size: 1.1em;">A script converts the input image to grayscale, resizes it to <b>256x256</b> to limit simulation time, and dumps all 65,536 pixels into a Hexadecimal text file.</p>
+            </div>
+            <div style="font-size: 2em;">➡️</div>
+            <div class="box-panel">
+                <h3 style="color: #e06c75; margin-top: 0;">2. Verilog Simulation</h3>
+                <p style="font-size: 1.1em;">ModelSim uses <code>$readmemh</code> to stream the hex file into our custom Top-Level module at 1 pixel per clock cycle, simulating a real-time camera feed.</p>
+            </div>
+            <div style="font-size: 2em;">➡️</div>
+            <div class="box-panel">
+                <h3 style="color: #98c379; margin-top: 0;">3. Python Rebuilding</h3>
+                <p style="font-size: 1.1em;">The hardware flags valid edges and saves them via <code>$fwrite</code>. A final Python script reconstructs the 2D grid into the final edge-detected image.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: Line Buffer -->
+    <div id="slide3" class="slide">
+        <h2>The Architecture: The Line Buffer</h2>
+        <p><b>The Challenge:</b> Pixels arrive in a single-file stream. Sobel math requires a 3x3 kernel. How do we look at 3 rows simultaneously?</p>
+        <p><b>The Solution:</b> We instantiate dual-port Block RAMs as 256-pixel <i>Conveyor Belts</i> to force the data to stack vertically. This creates a perfect sliding 3x3 D-Flip-Flop grid.</p>
+        
+        <button onclick="stepAnimation()" style="background: #e5c07b; margin-top: 10px;">Click here to simulate the Clock!</button>
+        
+        <div class="flex-row" style="margin-top: 20px; align-items: flex-start;">
+            <div>
+                <h3 style="color: #abb2bf;">RAM (Conveyor Belts)</h3>
+                <div class="conveyor" id="belt1">
+                    <div class="box empty"></div><div class="box empty"></div><div class="box empty"></div>
+                </div>
+                <div class="conveyor" id="belt2">
+                    <div class="box empty"></div><div class="box empty"></div><div class="box empty"></div>
+                </div>
+            </div>
+            <div style="font-size: 2em; margin-top: 40px;">➡️</div>
+            <div>
+                <h3 style="color: #abb2bf;">3x3 Sliding Window</h3>
+                <div class="grid3x3" id="windowGrid">
+                    <div class="box empty"></div><div class="box empty"></div><div class="box empty"></div>
+                    <div class="box empty"></div><div class="box empty"></div><div class="box empty"></div>
+                    <div class="box empty"></div><div class="box empty"></div><div class="box empty"></div>
+                </div>
+            </div>
+        </div>
+        <p id="simText" style="color: #e5c07b; font-size: 1.2em; font-weight: bold; margin-top: 15px;">Hardware State: Empty (0 pixels processed)</p>
+    </div>
+
+    <!-- SLIDE 4: Math -->
+    <div id="slide4" class="slide">
+        <h2>The Architecture: Sobel Math Module</h2>
+        <p>The module applies the Gx and Gy Convolution Matrices to the 3x3 grid to find the gradient magnitude.</p>
+        
+        <div class="flex-row">
+            <div style="font-family: monospace; font-size: 1.5em; background: #282c34; padding: 20px; border-radius: 10px;">
+                <div style="color: #61dafb; margin-bottom: 10px;">Gx Kernel</div>
+                [-1, 0, 1]<br>
+                [-2, 0, 2]<br>
+                [-1, 0, 1]
+            </div>
+            <div style="font-family: monospace; font-size: 1.5em; background: #282c34; padding: 20px; border-radius: 10px;">
+                <div style="color: #e06c75; margin-bottom: 10px;">Gy Kernel</div>
+                [ 1,  2,  1]<br>
+                [ 0,  0,  0]<br>
+                [-1, -2, -1]
+            </div>
+        </div>
+
+        <div class="code">
+            <span class="comment">// 1. Zero-extend the 8-bit unsigned pixels to 9-bit signed numbers to allow negative subtraction</span><br>
+            wire signed [8:0] s11 = {1'b0, p11};<br><br>
+            
+            <span class="comment">// 2. Hardware Optimization: We replace expensive Multipliers with Bit-Shifting (<<< 1)</span><br>
+            wire signed [11:0] gx = (s13 + <span class="highlight">(s23 <<< 1)</span> + s33) - (s11 + <span class="highlight">(s21 <<< 1)</span> + s31);<br><br>
+            
+            <span class="comment">// 3. Combinational Thresholding</span><br>
+            wire [7:0] edge_pixel = (abs_gx + abs_gy > THRESHOLD) ? 8'hFF : 8'h00;
+        </div>
+    </div>
+
+    <!-- SLIDE 5: Testing -->
+    <div id="slide5" class="slide">
+        <h2>System Integration & Verification</h2>
+        <p>To verify the design, we used ModelSim to execute our Master Testbench.</p>
+        
+        <div class="flex-row">
+            <div class="box-panel" style="max-width: 800px;">
+                <h3 style="color: #98c379; margin-top: 0;">Timing Constraints</h3>
+                <p style="font-size: 1.1em;">The <code>window_valid</code> signal requires exactly <b>515 clock cycles</b> to trigger. This accounts for filling both 256-pixel RAM belts, plus the 3 additional clock cycles required to shift the data across the 3x3 grid.</p>
+                
+                <h3 style="color: #61dafb;">File I/O Verification</h3>
+                <p style="font-size: 1.1em;">Because the hardware discards the first 515 cycles, our output text file contains exactly <code>65,021</code> valid pixels. Our Python reconstruction script automatically detects this offset and zero-pads the borders, successfully reconstructing the perfect edge-detected image!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button onclick="prevSlide()">⬅️ Previous Slide</button>
+        <button onclick="nextSlide()">Next Slide ➡️</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 5;
+
+        function showSlide(n) {
+            for(let i=1; i<=totalSlides; i++) {
+                document.getElementById('slide' + i).classList.remove('active');
+            }
+            document.getElementById('slide' + n).classList.add('active');
+        }
+
+        function nextSlide() {
+            if(currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if(currentSlide > 1) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // Custom JS Animation for the Line Buffer!
+        let simStep = 0;
+        
+        function stepAnimation() {
+            let simText = document.getElementById("simText");
+            if (simStep === 0) {
+                document.getElementById('belt2').innerHTML = `<div class="box">C</div><div class="box">B</div><div class="box">A</div>`;
+                simText.innerText = "Fast forward: The first row of pixels (A, B, C) fills Belt 2.";
+            } else if (simStep === 1) {
+                document.getElementById('belt1').innerHTML = `<div class="box">C</div><div class="box">B</div><div class="box">A</div>`;
+                document.getElementById('belt2').innerHTML = `<div class="box">F</div><div class="box">E</div><div class="box">D</div>`;
+                simText.innerText = "Fast forward: The second row enters, pushing the first row up to Belt 1.";
+            } else if (simStep === 2) {
+                document.getElementById('belt1').innerHTML = `<div class="box empty"></div><div class="box">C</div><div class="box">B</div>`;
+                document.getElementById('belt2').innerHTML = `<div class="box empty"></div><div class="box">F</div><div class="box">E</div>`;
+                document.getElementById('windowGrid').innerHTML = `
+                    <div class="box empty"></div><div class="box empty"></div><div class="box">A</div>
+                    <div class="box empty"></div><div class="box empty"></div><div class="box">D</div>
+                    <div class="box empty"></div><div class="box empty"></div><div class="box">G</div>
+                `;
+                simText.innerText = "Pixel G enters! The first column of the window is captured!";
+            } else if (simStep === 3) {
+                document.getElementById('belt1').innerHTML = `<div class="box empty"></div><div class="box empty"></div><div class="box">C</div>`;
+                document.getElementById('belt2').innerHTML = `<div class="box empty"></div><div class="box empty"></div><div class="box">F</div>`;
+                document.getElementById('windowGrid').innerHTML = `
+                    <div class="box empty"></div><div class="box">A</div><div class="box">B</div>
+                    <div class="box empty"></div><div class="box">D</div><div class="box">E</div>
+                    <div class="box empty"></div><div class="box">G</div><div class="box">H</div>
+                `;
+                simText.innerText = "Pixel H enters! Everything shifts left.";
+            } else if (simStep === 4) {
+                document.getElementById('windowGrid').innerHTML = `
+                    <div class="box">A</div><div class="box">B</div><div class="box">C</div>
+                    <div class="box">D</div><div class="box">E</div><div class="box">F</div>
+                    <div class="box">G</div><div class="box">H</div><div class="box">I</div>
+                `;
+                simText.innerText = "Pixel I enters! The window is fully aligned. (window_valid = 1)";
+            } else {
+                simStep = -1; // reset
+                document.getElementById('belt1').innerHTML = `<div class="box empty"></div><div class="box empty"></div><div class="box empty"></div>`;
+                document.getElementById('belt2').innerHTML = `<div class="box empty"></div><div class="box empty"></div><div class="box empty"></div>`;
+                document.getElementById('windowGrid').innerHTML = `<div class="box empty"></div><div class="box empty"></div><div class="box empty"></div><div class="box empty"></div><div class="box empty"></div><div class="box empty"></div><div class="box empty"></div><div class="box empty"></div><div class="box empty"></div>`;
+                simText.innerText = "System reset.";
+            }
+            simStep++;
+        }
+    </script>
+</body>
+</html>

@@ -9,7 +9,7 @@ module line_buffer (
 
     // i had to change output here to reg since i am assigning in always blcok
     output reg [7:0] p11,
-    output reg [7:0] p12,
+    output reg [7:0] p12, 
     output reg [7:0] p13,
     output reg [7:0] p21,
     output reg [7:0] p22,

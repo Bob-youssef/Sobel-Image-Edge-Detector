@@ -1,0 +1,7 @@
+# vsim -c tb_sobel -do "run -all; quit" 
+# Start time: 21:49:28 on Aug 26,2026
+# Loading work.tb_sobel
+# Loading work.sobel_top
+# Loading work.line_buffer
+# Loading work.sobel_math
+# run -all

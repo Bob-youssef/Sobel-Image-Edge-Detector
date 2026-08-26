@@ -1,0 +1,90 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/NTI Summer Course Training/Sobel/Image Edge Detector/Tb
+vline_buffer
+Z1 !s110 1787770167
+!i10b 1
+!s100 ?;6n:ZIFIM7P[zckVVjK41
+IzKMJ:Db2I;Vh36mJzm8Ec2
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1787659306
+8../RTL/line_buffer.v
+F../RTL/line_buffer.v
+L0 4
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1787770167.000000
+Z5 !s107 tb_sobel.v|../RTL/sobel_top.v|../RTL/sobel_math.v|../RTL/line_buffer.v|
+Z6 !s90 ../RTL/line_buffer.v|../RTL/sobel_math.v|../RTL/sobel_top.v|tb_sobel.v|
+!i113 1
+Z7 tCvgOpt 0
+vsobel_math
+R1
+!i10b 1
+!s100 MMNkfA9lE>:OYTBzIU;0X1
+InVfmNTQoT4hciB>XMJei61
+R2
+R0
+Z8 w1787768356
+8../RTL/sobel_math.v
+F../RTL/sobel_math.v
+L0 3
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vsobel_top
+R1
+!i10b 1
+!s100 E=kWJCWTfM`7PcSP=abCD3
+IR<o8Ff6P<LA^64<2_IS6l2
+R2
+R0
+R8
+8../RTL/sobel_top.v
+F../RTL/sobel_top.v
+L0 4
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7
+vtb_sobel
+R1
+!i10b 1
+!s100 aROi]CV9K58?SG_X[GS091
+Ia=Fc`ln5dT0BnGP_cfBSV1
+R2
+R0
+w1787769514
+8tb_sobel.v
+Ftb_sobel.v
+L0 6
+R3
+r1
+!s85 0
+31
+R4
+R5
+R6
+!i113 1
+R7

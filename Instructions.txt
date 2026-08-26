@@ -1,0 +1,17 @@
+Commands to run : 
+
+1. In CMD : 
+
+"python image_to_hex.py"
+
+2. In VSCode : 
+
+cd Tb
+vlib work
+vlog ../RTL/*.v tb_sobel.v
+vsim -c tb_sobel -do "run -all; quit"
+cd ..
+
+3. In CMD : 
+
+"python hex_to_image.py"

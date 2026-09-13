@@ -1,0 +1,146 @@
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Digital timing diagram of the sobel_top design simulated with Icarus Verilog, showing reset, pixel streaming, the line-buffer window becoming valid, and an edge being detected as the test image crosses from dark to bright.</h2>
+<div style="display:flex; gap:8px; flex-wrap:wrap; margin:0 0 1rem;" id="tabs"></div>
+<div id="wave"></div>
+<div style="display:flex; gap:16px; flex-wrap:wrap; margin-top:12px; font-size:12px; color:var(--text-secondary);">
+  <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--border-strong);margin-right:5px;vertical-align:-1px;"></span>clock / control bits</span>
+  <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#85B7EB;margin-right:5px;vertical-align:-1px;"></span>pixel data</span>
+  <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#F0997B;margin-right:5px;vertical-align:-1px;"></span>Sobel math</span>
+  <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:#F09595;margin-right:5px;vertical-align:-1px;"></span>edge detected</span>
+</div>
+
+<script>
+const DATA = {"reset_start":[{"cycle":0,"reset":1,"pixel_in":0,"data_valid_in":0,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":0,"data_valid_out":0},{"cycle":1,"reset":1,"pixel_in":0,"data_valid_in":0,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":0,"data_valid_out":0},{"cycle":2,"reset":1,"pixel_in":0,"data_valid_in":0,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":0,"data_valid_out":0},{"cycle":3,"reset":0,"pixel_in":0,"data_valid_in":0,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":0,"data_valid_out":0},{"cycle":4,"reset":0,"pixel_in":0,"data_valid_in":0,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":5,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":6,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":7,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":8,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":9,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":10,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":11,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":12,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":13,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":14,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":15,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":16,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":17,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":18,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":19,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":null,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0}],"window_valid_assert":[{"cycle":515,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":0,"p22":240,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":516,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":0,"p22":240,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":517,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":240,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":518,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":0,"p22":10,"gx":null,"magnitude":null,"edge_pixel":null,"pixel_out":null,"data_valid_out":0},{"cycle":519,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":null,"data_valid_out":0},{"cycle":520,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":521,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":522,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":523,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":524,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":525,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":526,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":527,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":528,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":529,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":530,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":531,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":532,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":533,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":534,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":535,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":536,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":537,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":538,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1}],"edge_detected":[{"cycle":636,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":637,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":638,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":639,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":640,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":641,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":642,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":643,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":644,"reset":0,"pixel_in":10,"data_valid_in":1,"window_valid":1,"p22":10,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":645,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":10,"gx":920,"magnitude":920,"edge_pixel":255,"pixel_out":0,"data_valid_out":1},{"cycle":646,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":920,"magnitude":920,"edge_pixel":255,"pixel_out":255,"data_valid_out":1},{"cycle":647,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":255,"data_valid_out":1},{"cycle":648,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":649,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":650,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":651,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":652,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":653,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":654,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":655,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":656,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":657,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":658,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":659,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1}],"tail":[{"cycle":770,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":771,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":772,"reset":0,"pixel_in":240,"data_valid_in":1,"window_valid":1,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":1},{"cycle":773,"reset":0,"pixel_in":240,"data_valid_in":0,"window_valid":0,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":0},{"cycle":774,"reset":0,"pixel_in":240,"data_valid_in":0,"window_valid":0,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":0},{"cycle":775,"reset":0,"pixel_in":240,"data_valid_in":0,"window_valid":0,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":0},{"cycle":776,"reset":0,"pixel_in":240,"data_valid_in":0,"window_valid":0,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":0},{"cycle":777,"reset":0,"pixel_in":240,"data_valid_in":0,"window_valid":0,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":0},{"cycle":778,"reset":0,"pixel_in":240,"data_valid_in":0,"window_valid":0,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":0},{"cycle":779,"reset":0,"pixel_in":240,"data_valid_in":0,"window_valid":0,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":0},{"cycle":780,"reset":0,"pixel_in":240,"data_valid_in":0,"window_valid":0,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":0},{"cycle":781,"reset":0,"pixel_in":240,"data_valid_in":0,"window_valid":0,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":0},{"cycle":782,"reset":0,"pixel_in":240,"data_valid_in":0,"window_valid":0,"p22":240,"gx":0,"magnitude":0,"edge_pixel":0,"pixel_out":0,"data_valid_out":0}]};
+
+const TABS = [
+  {key:'reset_start', label:'Reset & stream start'},
+  {key:'window_valid_assert', label:'Window valid asserts'},
+  {key:'edge_detected', label:'Edge detected'},
+  {key:'tail', label:'Frame ends'}
+];
+
+const BIT_ROWS = [
+  {key:'reset', label:'reset'},
+  {key:'data_valid_in', label:'data_valid_in'},
+  {key:'window_valid', label:'window_valid'},
+  {key:'data_valid_out', label:'data_valid_out'}
+];
+const BUS_ROWS = [
+  {key:'pixel_in', label:'pixel_in', color:'#85B7EB', dark:'#0C447C'},
+  {key:'p22', label:'p22 (center tap)', color:'#85B7EB', dark:'#0C447C'},
+  {key:'gx', label:'gx', color:'#F0997B', dark:'#712B13'},
+  {key:'magnitude', label:'magnitude', color:'#F0997B', dark:'#712B13'},
+  {key:'edge_pixel', label:'edge_pixel', color:'#F09595', dark:'#791F1F'},
+  {key:'pixel_out', label:'pixel_out', color:'#F09595', dark:'#791F1F'}
+];
+
+const LABEL_W = 118;
+const COL_W = 22;
+const ROW_H = 26;
+const isDark = () => (document.documentElement.getAttribute('data-mode') === 'dark');
+
+function buildTabs(){
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = '';
+  TABS.forEach((t, i) => {
+    const b = document.createElement('button');
+    b.textContent = t.label;
+    b.dataset.key = t.key;
+    b.style.fontSize = '13px';
+    b.style.padding = '6px 12px';
+    if(i===0) b.style.borderColor = 'var(--border-accent, var(--text-accent))';
+    b.onclick = () => selectTab(t.key);
+    tabsEl.appendChild(b);
+  });
+}
+
+function selectTab(key){
+  document.querySelectorAll('#tabs button').forEach(b => {
+    b.style.borderColor = (b.dataset.key === key) ? 'var(--text-accent)' : 'var(--border)';
+    b.style.color = (b.dataset.key === key) ? 'var(--text-accent)' : 'var(--text-primary)';
+  });
+  render(key);
+}
+
+function stepPath(vals, x0, y0, y1){
+  let d = '';
+  vals.forEach((v, i) => {
+    const x = x0 + i*COL_W;
+    const y = v ? y0 : y1;
+    d += (i===0 ? 'M' : 'L') + x + ' ' + y + ' L ' + (x+COL_W) + ' ' + y + ' ';
+    if(i < vals.length-1){
+      const nv = vals[i+1];
+      const ny = nv ? y0 : y1;
+      if(ny !== y) d += 'L ' + (x+COL_W) + ' ' + ny + ' ';
+    }
+  });
+  return d;
+}
+
+function render(key){
+  const rows = DATA[key];
+  const n = rows.length;
+  const width = LABEL_W + n*COL_W + 20;
+  const clkRows = 1;
+  const totalRows = clkRows + BIT_ROWS.length + BUS_ROWS.length;
+  const height = 30 + totalRows*ROW_H + 20;
+  const dark = isDark();
+  const strokeCol = dark ? '#c2c0b6' : '#3d3d3a';
+  const gridCol = dark ? '#444441' : '#D3D1C7';
+
+  let svg = '<svg width="100%" viewBox="0 0 ' + width + ' ' + height + '" role="img">';
+  svg += '<title>Timing diagram</title><desc>Signal values across clock cycles ' + rows[0].cycle + ' to ' + rows[n-1].cycle + '</desc>';
+
+  svg += '<text x="4" y="16" font-size="11" fill="' + strokeCol + '">cycle</text>';
+  rows.forEach((r,i) => {
+    if(i % 2 === 0 || n <= 26){
+      svg += '<text x="' + (LABEL_W + i*COL_W + COL_W/2) + '" y="16" font-size="9" text-anchor="middle" fill="' + strokeCol + '">' + r.cycle + '</text>';
+    }
+  });
+
+  let y = 30;
+  // clk lane (illustrative toggling, half-cycle per cell)
+  svg += '<text x="4" y="' + (y + ROW_H/2 + 4) + '" font-size="11" fill="' + strokeCol + '">clk</text>';
+  let clkPath = '';
+  for(let i=0;i<n;i++){
+    const x = LABEL_W + i*COL_W;
+    const yHigh = y + 6, yLow = y + ROW_H - 6, xm = x + COL_W/2;
+    clkPath += 'M' + x + ' ' + yLow + ' L' + x + ' ' + yHigh + ' L' + xm + ' ' + yHigh + ' L' + xm + ' ' + yLow + ' L' + (x+COL_W) + ' ' + yLow + ' ';
+  }
+  svg += '<path d="' + clkPath + '" fill="none" stroke="' + gridCol + '" stroke-width="1"/>';
+  y += ROW_H;
+
+  BIT_ROWS.forEach(row => {
+    const vals = rows.map(r => r[row.key]);
+    svg += '<text x="4" y="' + (y + ROW_H/2 + 4) + '" font-size="11" fill="' + strokeCol + '">' + row.label + '</text>';
+    const yHigh = y + 6, yLow = y + ROW_H - 6;
+    const d = stepPath(vals, LABEL_W, yHigh, yLow);
+    const active = vals.some(v => v === 1);
+    const col = active ? '#1D9E75' : strokeCol;
+    svg += '<path d="' + d + '" fill="none" stroke="' + col + '" stroke-width="1.5"/>';
+    y += ROW_H;
+  });
+
+  BUS_ROWS.forEach(row => {
+    svg += '<text x="4" y="' + (y + ROW_H/2 + 4) + '" font-size="11" fill="' + strokeCol + '">' + row.label + '</text>';
+    rows.forEach((r,i) => {
+      const x = LABEL_W + i*COL_W;
+      const v = r[row.key];
+      const isEdge = (row.key === 'edge_pixel' || row.key === 'pixel_out') && v === 255;
+      const fill = v === null || v === undefined ? (dark ? '#2C2C2A' : '#F1EFE8') : (isEdge ? (dark ? '#791F1F' : '#F09595') : (dark ? row.dark : row.color));
+      svg += '<rect x="' + (x+1) + '" y="' + (y+3) + '" width="' + (COL_W-2) + '" height="' + (ROW_H-6) + '" rx="2" fill="' + fill + '"/>';
+      const label = (v === null || v === undefined) ? 'x' : v;
+      const textCol = v === null || v === undefined ? strokeCol : (dark ? '#fff' : (isEdge ? '#4A1B0C' : (row.key==='pixel_in'||row.key==='p22' ? '#042C53' : '#4A1B0C')));
+      if(String(label).length <= 3){
+        svg += '<text x="' + (x+COL_W/2) + '" y="' + (y+ROW_H/2+3) + '" font-size="10" text-anchor="middle" fill="' + textCol + '">' + label + '</text>';
+      }
+    });
+    y += ROW_H;
+  });
+
+  svg += '</svg>';
+  document.getElementById('wave').innerHTML = svg;
+}
+
+buildTabs();
+selectTab(TABS[0].key);
+</script>
